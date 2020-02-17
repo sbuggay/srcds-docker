@@ -1,6 +1,5 @@
 FROM debian:buster-slim
 
-ENV USER csgo
 ENV HOME /home/$USER
 ENV SERVER $HOME/hlserver
 
@@ -23,7 +22,6 @@ ADD ./entry.sh $SERVER/entry.sh
 
 RUN chown -R $USER:$USER $SERVER
 
-USER $USER
 RUN curl http://media.steampowered.com/client/steamcmd_linux.tar.gz | tar -C $SERVER -xvz \
     && $SERVER/update.sh \
     && wget -qO- https://mms.alliedmods.net/mmsdrop/1.10/mmsource-1.10.7-git971-linux.tar.gz | tar xvzf - \
