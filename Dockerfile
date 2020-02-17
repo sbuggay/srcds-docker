@@ -1,24 +1,19 @@
-FROM debian:stable
+FROM debian:buster-slim
 
 ENV USER csgo
 ENV HOME /home/$USER
 ENV SERVER $HOME/hlserver
 
-RUN apt-get -y update \
-    && apt-get -y upgrade \
-    && apt-get -y install lib32gcc1 curl net-tools lib32stdc++6 locales \
-    && locale-gen en_US.UTF-8 \
-    && update-locale LANG=en_US.UTF-8 LANGUAGE=en_US.UTF-8 LC_ALL=en_US.UTF-8 \
-    && dpkg-reconfigure --frontend=noninteractive locales \
-    && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
-    && useradd $USER \
-    && mkdir $HOME \
-    && chown $USER:$USER $HOME \
-    && mkdir $SERVER
-
-ENV LC_ALL en_US.UTF-8
-ENV LANG en_US.UTF-8
-ENV LANGUAGE en_US.UTF-8
+RUN set -x \
+	&& apt-get update \
+	&& apt-get install -y --no-install-recommends --no-install-suggests \
+		lib32stdc++6=8.3.0-6 \
+		lib32gcc1=1:8.3.0-6 \
+		wget=1.20.1-1.1 \
+		ca-certificates=20190110 \
+	&& apt-get clean autoclean \
+	&& apt-get autoremove -y \
+	&& rm -rf /var/lib/apt/lists/*
 
 ADD ./csgo_ds.txt $SERVER/csgo_ds.txt
 ADD ./update.sh $SERVER/update.sh
