@@ -15,11 +15,11 @@ RUN set -x \
 	&& apt-get autoremove -y \
 	&& rm -rf /var/lib/apt/lists/*
 
-ADD ./csgo_ds.txt $SERVER/csgo_ds.txt
+ADD ./update.txt $SERVER/update.txt
 ADD ./update.sh $SERVER/update.sh
 ADD ./autoexec.cfg $SERVER/csgo/csgo/cfg/autoexec.cfg
 ADD ./server.cfg $SERVER/csgo/csgo/cfg/server.cfg
-ADD ./csgo.sh $SERVER/csgo.sh
+ADD ./entry.sh $SERVER/entry.sh
 
 RUN chown -R $USER:$USER $SERVER
 
@@ -32,5 +32,5 @@ RUN curl http://media.steampowered.com/client/steamcmd_linux.tar.gz | tar -C $SE
 EXPOSE 27015/udp 27015/tcp
 
 WORKDIR /home/$USER/hlserver
-ENTRYPOINT ["./csgo.sh"]
+ENTRYPOINT ["./entry.sh"]
 CMD ["-console" "-usercon" "+game_type" "0" "+game_mode" "1" "+mapgroup" "mg_active" "+map" "de_cache"]
