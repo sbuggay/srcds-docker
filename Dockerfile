@@ -24,7 +24,11 @@ RUN wget -qO- http://media.steampowered.com/client/steamcmd_linux.tar.gz | tar -
     && $SERVER/update.sh \
     && wget -qO- https://mms.alliedmods.net/mmsdrop/1.10/mmsource-1.10.7-git971-linux.tar.gz | tar -C $SERVER/csgo/csgo/ -xvzf - \
 	&& wget -qO- https://sm.alliedmods.net/smdrop/1.10/sourcemod-1.10.0-git6454-linux.tar.gz | tar -C $SERVER/csgo/csgo/ -xvzf - \
-    && wget -P $SERVER/csgo/csgo/addons/sourcemod/plugins/ http://www.sourcemod.net/vbcompiler.php?file_id=136929
+    && wget -qO- https://github.com/splewis/csgo-pug-setup/releases/download/2.0.5/pugsetup_2.0.5.zip -O pugsetup.zip \
+    && unzip pugsetup.zip \
+    && rm pugsetup.zip
+
+ADD ./plugins/EnableDisable.smx $SERVER/csgo/csgo/addons/sourcemod/plugins/EnableDisable.smx
 
 EXPOSE 27015/udp 27015/tcp
 
