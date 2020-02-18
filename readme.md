@@ -1,3 +1,6 @@
+Install Docker https://docs.docker.com/install/
+
+
 ```
 docker build -t csgo https://github.com/sbuggay/srcds-docker.git
 ```

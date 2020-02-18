@@ -26,8 +26,11 @@ RUN wget -qO- http://media.steampowered.com/client/steamcmd_linux.tar.gz | tar -
     && wget -qO- https://mms.alliedmods.net/mmsdrop/1.10/mmsource-1.10.7-git971-linux.tar.gz | tar -C $SERVER/csgo/csgo/ -xvzf - \
     && wget -qO- https://sm.alliedmods.net/smdrop/1.10/sourcemod-1.10.0-git6454-linux.tar.gz | tar -C $SERVER/csgo/csgo/ -xvzf - \
     && wget -qO- https://github.com/splewis/csgo-pug-setup/releases/download/2.0.5/pugsetup_2.0.5.zip -O pugsetup.zip \
-    && unzip pugsetup.zip \
+    && unzip pugsetup.zip -d $SERVER/csgo/csgo/ \
     && rm pugsetup.zip
+
+
+RUN if [ "$STEAM_ID" ] ; then echo "\"$STEAM_ID\" \"99:z\"" >> csgo/csgo/addons/sourcemod/configs/admins_simple.ini; fi
 
 ADD ./plugins/EnableDisable.smx $SERVER/csgo/csgo/addons/sourcemod/plugins/EnableDisable.smx
 
