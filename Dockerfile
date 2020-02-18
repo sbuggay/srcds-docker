@@ -22,9 +22,9 @@ ADD ./entry.sh $SERVER/entry.sh
 
 RUN wget -qO- http://media.steampowered.com/client/steamcmd_linux.tar.gz | tar -C $SERVER -xvz \
     && $SERVER/update.sh \
-    && wget -qO- https://mms.alliedmods.net/mmsdrop/1.10/mmsource-1.10.7-git971-linux.tar.gz | tar -xvzf - \
-	&& wget -qO- https://sm.alliedmods.net/smdrop/1.10/sourcemod-1.10.0-git6454-linux.tar.gz | tar -xvzf -
-    # && wget -P /path/to/folder http://www.sourcemod.net/vbcompiler.php?file_id=136929
+    && wget -qO- https://mms.alliedmods.net/mmsdrop/1.10/mmsource-1.10.7-git971-linux.tar.gz | tar -C $SERVER/csgo/csgo/ -xvzf - \
+	&& wget -qO- https://sm.alliedmods.net/smdrop/1.10/sourcemod-1.10.0-git6454-linux.tar.gz | tar -C $SERVER/csgo/csgo/ -xvzf - \
+    && wget -P $SERVER/csgo/csgo/addons/sourcemod/plugins/ http://www.sourcemod.net/vbcompiler.php?file_id=136929
 
 EXPOSE 27015/udp 27015/tcp
 
