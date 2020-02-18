@@ -4,26 +4,27 @@ ENV HOME /home/$USER
 ENV SERVER $HOME/hlserver
 
 RUN set -x \
-	&& apt-get update \
-	&& apt-get install -y --no-install-recommends --no-install-suggests \
-		lib32stdc++6=8.3.0-6 \
-		lib32gcc1=1:8.3.0-6 \
-		wget=1.20.1-1.1 \
-		ca-certificates=20190110 \
-	&& apt-get clean autoclean \
-	&& apt-get autoremove -y \
-	&& rm -rf /var/lib/apt/lists/*
+    && apt-get update \
+    && apt-get install -y --no-install-recommends --no-install-suggests \
+    lib32stdc++6=8.3.0-6 \
+    lib32gcc1=1:8.3.0-6 \
+    wget=1.20.1-1.1 \
+    ca-certificates=20190110 \
+    unzip \
+    && apt-get clean autoclean \
+    && apt-get autoremove -y \
+    && rm -rf /var/lib/apt/lists/*
 
-ADD ./update.txt $SERVER/update.txt
-ADD ./update.sh $SERVER/update.sh
-ADD ./autoexec.cfg $SERVER/csgo/csgo/cfg/autoexec.cfg
-ADD ./server.cfg $SERVER/csgo/csgo/cfg/server.cfg
-ADD ./entry.sh $SERVER/entry.sh
+ADD ./scripts/update.txt $SERVER/update.txt
+ADD ./scripts/update.sh $SERVER/update.sh
+ADD ./scripts/entry.sh $SERVER/entry.sh
+ADD ./cfg/autoexec.cfg $SERVER/csgo/csgo/cfg/autoexec.cfg
+ADD ./cfg/server.cfg $SERVER/csgo/csgo/cfg/server.cfg
 
 RUN wget -qO- http://media.steampowered.com/client/steamcmd_linux.tar.gz | tar -C $SERVER -xvz \
     && $SERVER/update.sh \
     && wget -qO- https://mms.alliedmods.net/mmsdrop/1.10/mmsource-1.10.7-git971-linux.tar.gz | tar -C $SERVER/csgo/csgo/ -xvzf - \
-	&& wget -qO- https://sm.alliedmods.net/smdrop/1.10/sourcemod-1.10.0-git6454-linux.tar.gz | tar -C $SERVER/csgo/csgo/ -xvzf - \
+    && wget -qO- https://sm.alliedmods.net/smdrop/1.10/sourcemod-1.10.0-git6454-linux.tar.gz | tar -C $SERVER/csgo/csgo/ -xvzf - \
     && wget -qO- https://github.com/splewis/csgo-pug-setup/releases/download/2.0.5/pugsetup_2.0.5.zip -O pugsetup.zip \
     && unzip pugsetup.zip \
     && rm pugsetup.zip
