@@ -25,18 +25,17 @@ ADD ./scripts/update.sh $SERVER/update.sh
 ADD ./scripts/entry.sh $SERVER/entry.sh
 ADD ./cfg/autoexec.cfg $SERVER/csgo/csgo/cfg/autoexec.cfg
 ADD ./cfg/server.cfg $SERVER/csgo/csgo/cfg/server.cfg
+ADD ./scripts/install-metamod.sh $SERVER/install-metamod.sh
+ADD ./scripts/install-sourcemod.sh $SERVER/install-sourcemod.sh
+ADD ./scripts/install-plugins.sh $SERVER/install-plugins.sh
+ADD ./scripts/sourcemod-admin.sh $SERVER/sourcemod-admin.sh
 
-RUN wget -qO- http://media.steampowered.com/client/steamcmd_linux.tar.gz | tar -C $SERVER -xvz \
-    && $SERVER/update.sh
-    
-RUN wget -qO- https://mms.alliedmods.net/mmsdrop/1.10/mmsource-1.10.7-git971-linux.tar.gz | tar -C $SERVER/csgo/csgo/ -xvzf -
-RUN wget -qO- https://sm.alliedmods.net/smdrop/1.10/sourcemod-1.10.0-git6454-linux.tar.gz | tar -C $SERVER/csgo/csgo/ -xvzf -
-RUN wget -qO- https://github.com/splewis/csgo-pug-setup/releases/download/2.0.5/pugsetup_2.0.5.zip -O pugsetup.zip \
-    && unzip pugsetup.zip -d $SERVER/csgo/csgo/ \
-    && rm pugsetup.zip
+RUN wget -qO- http://media.steampowered.com/client/steamcmd_linux.tar.gz | tar -C $SERVER -xvz && $SERVER/update.sh
 
-
-RUN if [ -n "$STEAM_ID" ] ; then echo "\"$STEAM_ID\" \"99:z\"" >> $SERVER/csgo/csgo/addons/sourcemod/configs/admins_simple.ini; fi
+RUN if [ "$METAMOD" == true ] ; then ./install-metamod.sh ; fi
+RUN if [ "$SOURCEMOD" == true ] ; then ./install-sourcemod.sh ; fi
+RUN ./install-plugins.sh
+RUN if [ -n "$STEAM_ID" ] ; then ./sourcemod-admins.sh ; fi
 
 ADD ./plugins/EnableDisable.smx $SERVER/csgo/csgo/addons/sourcemod/plugins/EnableDisable.smx
 
