@@ -32,10 +32,10 @@ ADD ./scripts/sourcemod-admin.sh $SERVER/sourcemod-admin.sh
 
 RUN wget -qO- http://media.steampowered.com/client/steamcmd_linux.tar.gz | tar -C $SERVER -xvz && $SERVER/update.sh
 
-RUN if [ "$METAMOD" == true ] ; then ./install-metamod.sh ; fi
-RUN if [ "$SOURCEMOD" == true ] ; then ./install-sourcemod.sh ; fi
-RUN ./install-plugins.sh
-RUN if [ -n "$STEAM_ID" ] ; then ./sourcemod-admins.sh ; fi
+RUN if [ "$METAMOD" = true ] ; then ./$SERVER/install-metamod.sh ; fi
+RUN if [ "$SOURCEMOD" = true ] ; then ./$SERVER/install-sourcemod.sh ; fi
+RUN ./$SERVER/install-plugins.sh
+RUN if [ -n "$STEAM_ID" ] ; then ./$SERVER/sourcemod-admins.sh ; fi
 
 ADD ./plugins/EnableDisable.smx $SERVER/csgo/csgo/addons/sourcemod/plugins/EnableDisable.smx
 
