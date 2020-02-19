@@ -7,6 +7,7 @@ ENV SERVER $HOME/hlserver
 ARG METAMOD=true
 ARG SOURCEMOD=true
 ARG STEAM_ID
+ARG RCON_PASSWORD
 
 RUN set -x \
     && apt-get update \
@@ -43,3 +44,4 @@ EXPOSE 27015/udp 27015/tcp
 
 WORKDIR /home/$USER/hlserver
 ENTRYPOINT ["./entry.sh"]
+CMD ["-console" "-usercon" "+game_type" "0" "+game_mode" "1" "+mapgroup" "mg_active" "+map" "de_overpass"]
