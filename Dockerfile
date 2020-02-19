@@ -4,7 +4,9 @@ ENV HOME /home/$USER
 ENV SERVER $HOME/hlserver
 
 # Steam ID to be injected into sourcemod admin's if sourcemod is installed
-ARG STEAM_ID 
+ARG METAMOD=true
+ARG SOURCEMOD=true
+ARG STEAM_ID
 
 RUN set -x \
     && apt-get update \
@@ -34,7 +36,7 @@ RUN wget -qO- https://github.com/splewis/csgo-pug-setup/releases/download/2.0.5/
     && rm pugsetup.zip
 
 
-RUN if [ -n "$STEAM_ID" ] ; then echo "\"$STEAM_ID\" \"99:z\"" >> csgo/csgo/addons/sourcemod/configs/admins_simple.ini; fi
+RUN if [ -n "$STEAM_ID" ] ; then echo "\"$STEAM_ID\" \"99:z\"" >> $SERVER/csgo/csgo/addons/sourcemod/configs/admins_simple.ini; fi
 
 ADD ./plugins/EnableDisable.smx $SERVER/csgo/csgo/addons/sourcemod/plugins/EnableDisable.smx
 
@@ -42,4 +44,3 @@ EXPOSE 27015/udp 27015/tcp
 
 WORKDIR /home/$USER/hlserver
 ENTRYPOINT ["./entry.sh"]
-CMD ["-console" "-usercon" "+game_type" "0" "+game_mode" "1" "+mapgroup" "mg_active" "+map" "de_overpass"]
