@@ -3,6 +3,9 @@ FROM debian:buster-slim
 ENV HOME /home/$USER
 ENV SERVER $HOME/hlserver
 
+# Steam ID to be injected into sourcemod admin's if sourcemod is installed
+ARG STEAM_ID 
+
 RUN set -x \
     && apt-get update \
     && apt-get install -y --no-install-recommends --no-install-suggests \
