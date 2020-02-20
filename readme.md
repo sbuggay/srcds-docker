@@ -1,3 +1,4 @@
+srcds-docker is for easily spinning up 128 tick CS:GO servers with useful plugins and configs installed.
 
 ## Prerequisites
 
@@ -22,7 +23,6 @@ If you supply your steam id as a build arg `--build-arg STEAM_ID=<steam_id>`, yo
 
 ## Running the Server
 
-
 ```
 docker run -d csgo +sv_setsteamaccount <glst_token> +rcon_password <rcon_password>
 ```
@@ -37,4 +37,12 @@ If you need to do any maintainance, you can open a shell in your container with:
 
 ```
 docker exec -it <container> /bin/bash
+```
+
+## Updating the Server
+
+All you need to do is restart the container and srcds will autoupdate automatically.
+
+```
+docker restart <container>
 ```
