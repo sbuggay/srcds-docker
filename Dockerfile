@@ -6,6 +6,7 @@ ENV SERVER $HOME/hlserver
 # Steam ID to be injected into sourcemod admin's if sourcemod is installed
 ARG METAMOD=true
 ARG SOURCEMOD=true
+ARG PLUGINS=true
 ARG STEAM_ID
 ARG RCON_PASSWORD
 
@@ -34,9 +35,9 @@ ADD ./scripts/sourcemod-admin.sh $SERVER/sourcemod-admin.sh
 RUN wget -qO- http://media.steampowered.com/client/steamcmd_linux.tar.gz | tar -C $SERVER -xvz && $SERVER/update.sh
 
 RUN if [ "$METAMOD" = true ] ; then ./$SERVER/install-metamod.sh ; fi
-RUN if [ "$SOURCEMOD" = true ] ; then ./$SERVER/install-sourcemod.sh ; fi
-RUN ./$SERVER/install-plugins.sh
-RUN if [ -n "$STEAM_ID" ] ; then ./$SERVER/sourcemod-admin.sh ; fi
+RUN if [ "$METAMOD" = true ] && [ "$SOURCEMOD" = true ] ; then ./$SERVER/install-sourcemod.sh ; fi
+RUN if [ "$METAMOD" = true ] && [ "$SOURCEMOD" = true ] && [ "$PLUGINS" = true ] ; then ./$SERVER/install-plugins.sh ; fi
+RUN if [ "$METAMOD" = true ] && [ "$SOURCEMOD" = true ] && [ -n "$STEAM_ID" ] ; then ./$SERVER/sourcemod-admin.sh ; fi
 
 ADD ./plugins/EnableDisable.smx $SERVER/csgo/csgo/addons/sourcemod/plugins/EnableDisable.smx
 
