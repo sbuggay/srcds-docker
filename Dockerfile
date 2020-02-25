@@ -3,7 +3,6 @@ FROM debian:buster-slim
 ENV HOME /home/$USER
 ENV SERVER $HOME/hlserver
 
-# Steam ID to be injected into sourcemod admin's if sourcemod is installed
 ARG METAMOD=true
 ARG SOURCEMOD=true
 ARG PLUGINS=true
@@ -18,6 +17,8 @@ RUN set -x \
     wget=1.20.1-1.1 \
     ca-certificates=20190110 \
     unzip \
+    vim \
+    ranger \
     && apt-get clean autoclean \
     && apt-get autoremove -y \
     && rm -rf /var/lib/apt/lists/*
