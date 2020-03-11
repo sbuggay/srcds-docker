@@ -1,11 +1,5 @@
 FROM debian:buster-slim
 
-RUN useradd -ms /bin/bash steam
-USER steam
-
-ENV HOME /home/$USER
-ENV SERVER $HOME/hlserver
-
 ARG METAMOD=true
 ARG SOURCEMOD=true
 ARG PLUGINS=true
@@ -26,6 +20,12 @@ RUN set -x \
     && apt-get clean autoclean \
     && apt-get autoremove -y \
     && rm -rf /var/lib/apt/lists/*
+
+RUN useradd -ms /bin/bash steam
+USER steam
+
+ENV HOME /home/$USER
+ENV SERVER $HOME/hlserver
 
 ADD ./scripts/update.txt $SERVER/update.txt
 ADD ./scripts/update.sh $SERVER/update.sh
