@@ -26,17 +26,17 @@ USER steam
 ENV HOME /home/$USER
 ENV SERVER $HOME/hlserver
 
-ADD ./scripts/update.txt $SERVER/update.txt
-ADD ./scripts/update.sh $SERVER/update.sh
-ADD ./scripts/entry.sh $SERVER/entry.sh
-ADD ./cfg/autoexec.cfg $SERVER/csgo/csgo/cfg/autoexec.cfg
-ADD ./cfg/server.cfg $SERVER/csgo/csgo/cfg/server.cfg
-ADD ./scripts/install-metamod.sh $SERVER/install-metamod.sh
-ADD ./scripts/install-sourcemod.sh $SERVER/install-sourcemod.sh
-ADD ./scripts/install-plugins.sh $SERVER/install-plugins.sh
-ADD ./scripts/sourcemod-admin.sh $SERVER/sourcemod-admin.sh
+COPY --chown=steam scripts $SERVER/
 
 RUN wget -qO- http://media.steampowered.com/client/steamcmd_linux.tar.gz | tar -C $SERVER -xvz && $SERVER/update.sh
+
+# Patch the following error:
+# /home/steam/.steam/sdk32/steamclient.so: cannot open shared object file: No such file or directory
+RUN	mkdir -p /home/steam/.steam/sdk32 \
+  && ln -s /home/steam/steamcmd/linux32/steamclient.so /home/steam/.steam/sdk32/steamclient.so
+
+ADD ./cfg/autoexec.cfg $SERVER/csgo/csgo/cfg/autoexec.cfg
+ADD ./cfg/server.cfg $SERVER/csgo/csgo/cfg/server.cfg
 
 RUN if [ "$METAMOD" = true ] ; then ./$SERVER/install-metamod.sh ; fi
 RUN if [ "$METAMOD" = true ] && [ "$SOURCEMOD" = true ] ; then ./$SERVER/install-sourcemod.sh ; fi
@@ -44,8 +44,6 @@ RUN if [ "$METAMOD" = true ] && [ "$SOURCEMOD" = true ] && [ "$PLUGINS" = true ]
 RUN if [ "$METAMOD" = true ] && [ "$SOURCEMOD" = true ] && [ -n "$STEAM_ID" ] ; then ./$SERVER/sourcemod-admin.sh ; fi
 
 ADD ./plugins/EnableDisable.smx $SERVER/csgo/csgo/addons/sourcemod/plugins/EnableDisable.smx
-
-EXPOSE 27015/udp 27015/tcp
 
 WORKDIR /home/$USER/hlserver
 ENTRYPOINT ["./entry.sh"]
