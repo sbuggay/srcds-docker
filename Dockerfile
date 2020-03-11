@@ -1,5 +1,8 @@
 FROM debian:buster-slim
 
+RUN useradd -ms /bin/bash steam
+USER steam
+
 ENV HOME /home/$USER
 ENV SERVER $HOME/hlserver
 
