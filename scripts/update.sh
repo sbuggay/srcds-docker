@@ -1,3 +1,3 @@
 #!/bin/sh
-cd $HOME/hlserver
+cd $SERVER
 ./steamcmd.sh +runscript update.txt

@@ -1,7 +1,7 @@
 #!/bin/sh
 cd $HOME
 
-wget -qO- https://github.com/splewis/csgo-pug-setup/releases/download/2.0.5/pugsetup_2.0.5.zip -O pugsetup.zip
+wget -qO- https://github.com/splewis/csgo-pug-setup/releases/download/2.0.5/pugsetup_2.0.5.zip -O $HOME/pugsetup.zip
 unzip -o pugsetup.zip -d $SERVER/csgo/csgo/
 rm pugsetup.zip
 

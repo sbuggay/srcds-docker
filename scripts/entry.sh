@@ -1,3 +1,3 @@
 #!/bin/sh
-cd $HOME/hlserver
-csgo/srcds_run -game csgo -autoupdate -steam_dir ~/hlserver -steamcmd_script ~/hlserver/update.txt $@
+cd $SERVER
+csgo/srcds_run -game csgo -autoupdate -steam_dir $SERVER -steamcmd_script $SERVER/update.txt $@

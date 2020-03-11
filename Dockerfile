@@ -28,7 +28,7 @@ ENV SERVER $HOME/hlserver
 
 COPY --chown=steam scripts $SERVER/
 
-# RUN wget -qO- http://media.steampowered.com/client/steamcmd_linux.tar.gz | tar -C $SERVER -xvz && $SERVER/update.sh
+# RUN ./$SERVER/install-steamcmd.sh
 
 # Patch the following error:
 # /home/steam/.steam/sdk32/steamclient.so: cannot open shared object file: No such file or directory
