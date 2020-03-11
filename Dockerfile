@@ -1,4 +1,4 @@
-FROM debian:buster-slim
+FROM ubuntu:bionic
 
 ARG METAMOD=true
 ARG SOURCEMOD=true
@@ -9,11 +9,10 @@ ARG RCON_PASSWORD
 RUN set -x \
     && apt-get update \
     && apt-get install -y --no-install-recommends --no-install-suggests \
-    lib32stdc++6=8.3.0-6 \
-    lib32gcc1=1:8.3.0-6 \
-    wget=1.20.1-1.1 \
-    libcurl4:i386 \
-    ca-certificates=20190110 \
+    lib32stdc++6 \
+    lib32gcc1 \
+    ca-certificates \
+    wget \
     unzip \
     vim \
     ranger \
