@@ -18,6 +18,7 @@ RUN set -x \
     lib32stdc++6=8.3.0-6 \
     lib32gcc1=1:8.3.0-6 \
     wget=1.20.1-1.1 \
+    libcurl3:i386 \
     ca-certificates=20190110 \
     unzip \
     vim \
