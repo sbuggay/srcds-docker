@@ -14,8 +14,8 @@ RUN set -x \
     ca-certificates \
     wget \
     unzip \
+    time \
     vim \
-    ranger \
     && apt-get clean autoclean \
     && apt-get autoremove -y \
     && rm -rf /var/lib/apt/lists/*
