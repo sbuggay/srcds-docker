@@ -20,14 +20,13 @@ RUN set -x \
     && apt-get autoremove -y \
     && rm -rf /var/lib/apt/lists/*
 
-ENV HOME /home/$USER
-ENV SERVER $HOME/hlserver
-
-RUN useradd -m -d ${HOME} steam && \
-    chown -R ${USER} ${HOME}
+RUN useradd -m -d /home/steam steam && \
+    chown -R steam /home/steam
 
 USER steam
 
+ENV HOME /home/$USER
+ENV SERVER $HOME/hlserver
 
 COPY --chown=steam scripts $SERVER/
 
