@@ -1,5 +1,5 @@
 #!/bin/sh
-cd $HOME/steam
+cd $HOME
 
 echo $PWD
 
