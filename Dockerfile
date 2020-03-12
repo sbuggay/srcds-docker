@@ -46,6 +46,6 @@ RUN if [ "$METAMOD" = true ] && [ "$SOURCEMOD" = true ] && [ -n "$STEAM_ID" ] ; 
 
 ADD ./plugins/EnableDisable.smx $SERVER/csgo/csgo/addons/sourcemod/plugins/EnableDisable.smx
 
-WORKDIR /home/$USER/hlserver
+WORKDIR $SERVER
 ENTRYPOINT ["./entry.sh"]
 CMD ["-console" "-usercon" "+game_type" "0" "+game_mode" "1" "+mapgroup" "mg_active" "+map" "de_dust2" "-tickrate" "128"]
