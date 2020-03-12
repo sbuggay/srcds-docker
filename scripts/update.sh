@@ -1,2 +1,2 @@
 #!/bin/sh
-./steamcmd.sh +runscript update.txt
+$SERVER/steamcmd.sh +runscript update.txt
