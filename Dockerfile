@@ -20,7 +20,9 @@ RUN set -x \
     && apt-get autoremove -y \
     && rm -rf /var/lib/apt/lists/*
 
-RUN useradd -ms /bin/bash steam
+RUN useradd -m -d steam \
+    chown -R ${USER} /home/${USER}
+
 USER steam
 
 ENV HOME /home/$USER
