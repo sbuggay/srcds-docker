@@ -23,7 +23,7 @@ RUN set -x \
 ENV HOME /home/$USER
 ENV SERVER $HOME/hlserver
 
-RUN useradd -m -d ${HOME} steam \
+RUN useradd -m -d ${HOME} steam && \
     chown -R ${USER} ${HOME}
 
 USER steam
