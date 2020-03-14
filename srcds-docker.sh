@@ -1,7 +1,8 @@
 image_name="sbuggay/srcds-docker"
 image_url="https://github.com/sbuggay/srcds-docker.git"
 port=27015
-glst_token="<TOKEN>"
+glst_token=""
+workshop_token=""
 rcon_password=$(< /dev/urandom tr -dc a-z0-9 | head -c${1:-8};echo;)
 
 checkfor () {
