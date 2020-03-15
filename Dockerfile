@@ -7,6 +7,7 @@ ARG STEAM_ID
 ARG RCON_PASSWORD
 
 RUN set -x \
+    && dpkg --add-architecture i386 \
     && apt-get update \
     && apt-get install -y --no-install-recommends --no-install-suggests \
     lib32stdc++6 \
