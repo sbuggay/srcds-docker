@@ -11,6 +11,7 @@ RUN set -x \
     && apt-get install -y --no-install-recommends --no-install-suggests \
     lib32stdc++6 \
     lib32gcc1 \
+    libcurl4-gnutls-dev:i386 \
     ca-certificates \
     wget \
     unzip \
