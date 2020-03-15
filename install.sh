@@ -1,25 +1,38 @@
-for i in "$@"; do
-        case $i in
-        -p=* | --port=*)
-                PORT="${i#*=}"
+#!/bin/bash
+
+PARAMS=""
+
+while (("$#")); do
+        case "$1" in
+        -p | --port)
+                PORT=$2
+                shift 2
                 ;;
-        -t=* | --token=*)
-                TOKEN="${i#*=}"
+        -t | --token)
+                TOKEN=$2
+                shift 2
                 ;;
-        --password)
-                PASSWORD="${i#*=}"
+        -w | --workshop)
+                WORKSHOP=$2
+                shift 2
                 ;;
-        --rconpassword)
-                RCON="${i#*=}"
+        -r | --rcon_password)
+                RCON=$2
+                shift 2
                 ;;
-        --workshop)
-                WORKSHOP="${i#*=}"
+        --) # end argument parsing
+                shift
+                break
                 ;;
-        *)
-                # unknown option
+        *) # preserve positional arguments
+                PARAMS="$PARAMS $1"
+                shift
                 ;;
         esac
 done
+
+# set positional arguments in their proper place
+eval set -- "$PARAMS"
 
 randomPass() {
         tr </dev/urandom -dc a-z0-9 | head -c${1:-8}
@@ -33,6 +46,8 @@ RCON="${RCON:-$(randomPass)}"
 
 IMAGE_NAME="sbuggay/srcds-docker"
 IMAGE_URL="https://github.com/sbuggay/srcds-docker.git"
+
+echo $PORT $RCON
 
 checkfor() {
         command -v $1 >/dev/null 2>&1 || {
@@ -54,6 +69,5 @@ DOCKER_ID=$(docker run \
         -port $PORT +sv_setsteamaccount $TOKEN +rcon_password $RCON -authkey $WORKSHOP -usercon)
 
 echo -e "$IMAGE_NAME server started"
-echo -e "port\t\trcon\t\t"
-echo -e "$PORT\t\t$RCON"
-echo -e "$DOCKER_ID"
+echo -e "dockerid\t\tport\t\trcon\t\t"
+echo -e "${DOCKER_ID:0:8}\t\t$PORT\t\t$RCON"
