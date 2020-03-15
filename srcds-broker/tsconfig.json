@@ -1,6 +1,5 @@
 {
     "compilerOptions": {
-        "module": "none",
         "strict": true,
         "noImplicitAny": true,
         "removeComments": true,
