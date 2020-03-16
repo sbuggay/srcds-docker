@@ -73,7 +73,7 @@ DOCKER_ID=$(
     docker run \
     -p $PORT:$PORT -p $PORT:$PORT/udp \
     -l port=$PORT -l glst_token=$TOKEN -l rcon_password=$RCON \
-    -e SERVER_HOSTNAME=$SERVER_HOSTNAME
+    -e SERVER_HOSTNAME=$SERVER_HOSTNAME \
     -d $IMAGE_NAME \
     -port $PORT +sv_setsteamaccount $TOKEN +rcon_password $RCON -authkey $WORKSHOP -usercon
 )
