@@ -1,4 +1,4 @@
-FROM ubuntu:bionic
+FROM debian:buster-slim
 
 ARG METAMOD=true
 ARG SOURCEMOD=true
