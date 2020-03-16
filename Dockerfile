@@ -16,7 +16,6 @@ RUN set -x \
     ca-certificates \
     wget \
     unzip \
-    time \
     vim \
     && apt-get clean autoclean \
     && apt-get autoremove -y \
@@ -38,7 +37,9 @@ RUN ./$SERVER/install-steamcmd.sh
 RUN	mkdir -p /home/steam/.steam/sdk32 \
   && ln -s /home/steam/steamcmd/linux32/steamclient.so /home/steam/.steam/sdk32/steamclient.so
 
-ADD ./cfg/autoexec.cfg $SERVER/csgo/csgo/cfg/autoexec.cfg
+ENV AUTOEXEC $SERVER/csgo/csgo/cfg/autoexec.cfg
+
+ADD ./cfg/autoexec.cfg $AUTOEXEC
 ADD ./cfg/server.cfg $SERVER/csgo/csgo/cfg/server.cfg
 
 RUN if [ "$METAMOD" = true ] ; then ./$SERVER/install-metamod.sh ; fi
