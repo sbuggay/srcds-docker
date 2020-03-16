@@ -35,7 +35,7 @@ done
 eval set -- "$PARAMS"
 
 randomPass() {
-        tr </dev/urandom -dc a-z0-9 | head -c${1:-8}
+        LC_ALL=C tr </dev/urandom -dc a-z0-9 | head -c${1:-8}
         echo
 }
 
@@ -47,8 +47,6 @@ RCON="${RCON:-$(randomPass)}"
 IMAGE_NAME="sbuggay/srcds-docker"
 IMAGE_URL="https://github.com/sbuggay/srcds-docker.git"
 
-echo $PORT $RCON
-
 checkfor() {
         command -v $1 >/dev/null 2>&1 || {
                 echo >&2 "$1 is required"
@@ -57,6 +55,11 @@ checkfor() {
 }
 
 checkfor "docker"
+
+if ! docker info > /dev/null 2>&1; then
+        echo docker is not running
+        exit 1
+fi
 
 if ! docker images $IMAGE_NAME | grep -q $IMAGE_NAME; then
         docker build -t $IMAGE_NAME $IMAGE_URL

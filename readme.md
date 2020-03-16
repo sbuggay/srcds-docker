@@ -6,23 +6,21 @@ srcds-docker is for easily spinning up 128 tick CS:GO servers with useful plugin
 
 ## Using the Install Script
 
-Simply download and run the `install.sh` script.
+Simply run the `srcds-docker.sh` script.
 
-`./install.sh`
+`curl -s -L https://raw.githubusercontent.com/sbuggay/srcds-docker/master/srcds-docker.sh | bash`
 
-If docker is installed, the image will be built for you. This can take ~20 minutes depending on your internet speed.
+If docker is installed and running, the image will be built for you. This can take ~20 minutes depending on your internet speed.
 
 After the initial run, servers will be spun up nearly instantly.
 
 ```
-devan@bender:~/srcds-docker$ ./install.sh 
+devan@bender:~$ ./srcds-docker.sh
 sbuggay/srcds-docker server started
 port            rcon
-27017           8127tcfo
+27015           8127tcfo
 7c9ba318bd1b9d05c0326ba9d2d0509a6860fc8824dcb063932d99e77cedc7fc
 ```
-
-Don't forget to change the port and GLST in the installation script. You can get a GLST here: https://steamcommunity.com/dev/managegameservers.
 
 # Manual Steps
 
@@ -37,9 +35,10 @@ docker build -t csgo https://github.com/sbuggay/srcds-docker.git
 ### Plugins
 
 By default the image comes with:
+
 - [metamod](https://www.sourcemm.net/)
 - [sourcemod](https://www.sourcemod.net/)
-- [splewis/csgo-pug-setup](https://github.com/splewis/csgo-pug-setup)
+- [splewis/csgo-pug-setup](https://github.com/splewis/csgo-pug-setup) (disabled)
 - [splewis/csgo-practice-mode](https://github.com/splewis/csgo-practice-mode) (disabled)
 - [EnableDisable.sp](https://forums.alliedmods.net/showthread.php?p=1682844)
 
