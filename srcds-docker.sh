@@ -80,5 +80,5 @@ DOCKER_ID=$(
 )
 
 echo -e "$IMAGE_NAME server started"
-echo -e "dockerid\t\tport\t\trcon\t\t"
-echo -e "${DOCKER_ID:0:8}\t\t$PORT\t\t$RCON"
+echo -e "dockerid\t\thostname\t\t\tport\t\trcon\t\t"
+echo -e "${DOCKER_ID:0:8}\t\t"$SERVER_HOSTNAME"\t\t\t$PORT\t\t$RCON"
