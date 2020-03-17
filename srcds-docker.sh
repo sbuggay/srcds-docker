@@ -44,7 +44,6 @@ randomPass() {
 }
 
 # Set defaults
-
 PORT="${PORT:-27015}"
 RCON="${RCON:-$(randomPass)}"
 
@@ -66,7 +65,7 @@ if ! docker info >/dev/null 2>&1; then
 fi
 
 if ! docker images $IMAGE_NAME | grep -q $IMAGE_NAME; then
-    docker build -t $IMAGE_NAME $IMAGE_URL
+    docker build --rm=false -t $IMAGE_NAME $IMAGE_URL
 fi
 
 DOCKER_ID=$(
