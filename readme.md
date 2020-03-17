@@ -8,7 +8,9 @@ srcds-docker is for easily spinning up 128 tick CS:GO servers with useful plugin
 
 Simply run the `srcds-docker.sh` script.
 
-`curl -s -L https://raw.githubusercontent.com/sbuggay/srcds-docker/master/srcds-docker.sh | bash`
+```
+curl -s -L https://raw.githubusercontent.com/sbuggay/srcds-docker/master/srcds-docker.sh | bash
+```
 
 If docker is installed and running, the image will be built for you. This can take ~20 minutes depending on your internet speed.
 
@@ -29,7 +31,7 @@ If you want to change some of the build steps for your image you can do so manua
 ## Building the Image
 
 ```
-docker build -t csgo https://github.com/sbuggay/srcds-docker.git
+docker build -t sbuggay/srcds-docker https://github.com/sbuggay/srcds-docker.git
 ```
 
 ### Plugins
@@ -47,13 +49,13 @@ If you supply your steam id as a build arg `--build-arg STEAM_ID=<steam_id>`, yo
 ## Running the Server
 
 ```
-docker run -d csgo +sv_setsteamaccount <glst_token> +rcon_password <rcon_password>
+docker run -d sbuggay/srcds-docker +sv_setsteamaccount <glst_token> +rcon_password <rcon_password>
 ```
 
 You can run more than one container on the same machine by changing the port that srcds uses and that docker exposes.
 
 ```
-docker run -d csgo -p 27016:27016 -p 27016:27016/udp -port 27016 +sv_setsteamaccount <glst_token> +rcon_password <rcon_password> 
+docker run -d sbuggay/srcds-docker -p 27016:27016 -p 27016:27016/udp -port 27016 +sv_setsteamaccount <glst_token> +rcon_password <rcon_password> 
 ```
 
 If you need to do any maintainance, you can open a shell in your container with:

@@ -51,4 +51,3 @@ ADD ./plugins/EnableDisable.smx $SERVER/csgo/csgo/addons/sourcemod/plugins/Enabl
 
 WORKDIR $SERVER
 ENTRYPOINT ["./entry.sh"]
-CMD ["-console" "-usercon" "+game_type" "0" "+game_mode" "1" "+mapgroup" "mg_active" "+map" "de_dust2" "-tickrate" "128"]

@@ -46,6 +46,7 @@ randomPass() {
 # Set defaults
 PORT="${PORT:-27015}"
 RCON="${RCON:-$(randomPass)}"
+SERVER_HOSTNAME="${SERVER_HOSTNAME:-Counter-Strike: Global Offensive Dedicated Server}"
 
 IMAGE_NAME="sbuggay/srcds-docker"
 IMAGE_URL="https://github.com/sbuggay/srcds-docker.git"
@@ -74,7 +75,8 @@ DOCKER_ID=$(
     -l port=$PORT -l glst_token=$TOKEN -l rcon_password=$RCON \
     -e SERVER_HOSTNAME=$SERVER_HOSTNAME \
     -d $IMAGE_NAME \
-    -port $PORT +sv_setsteamaccount $TOKEN +rcon_password $RCON -authkey $WORKSHOP -usercon
+    -port $PORT +sv_setsteamaccount $TOKEN +rcon_password $RCON -authkey $WORKSHOP -usercon \
+    +game_type 0 +game_mode 1 +mapgroup mg_active +map de_dust2 -tickrate 128
 )
 
 echo -e "$IMAGE_NAME server started"
