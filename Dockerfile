@@ -27,6 +27,8 @@ RUN useradd -m -d /home/steam steam && \
 USER steam
 
 ENV SERVER $HOME/hlserver
+ENV AUTOEXEC $SERVER/csgo/csgo/cfg/autoexec.cfg
+ENV APP_ID 740
 
 COPY --chown=steam scripts $SERVER/
 
@@ -37,8 +39,6 @@ RUN ./$SERVER/install-steamcmd.sh
 RUN	mkdir -p /home/steam/.steam/sdk32 \
   && ln -s /home/steam/steamcmd/linux32/steamclient.so /home/steam/.steam/sdk32/steamclient.so
 
-ENV AUTOEXEC $SERVER/csgo/csgo/cfg/autoexec.cfg
-ENV APP_ID 740
 
 ADD ./cfg/autoexec.cfg $AUTOEXEC
 ADD ./cfg/server.cfg $SERVER/csgo/csgo/cfg/server.cfg
