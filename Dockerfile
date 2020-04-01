@@ -38,9 +38,20 @@ RUN	mkdir -p /home/steam/.steam/sdk32 \
   && ln -s /home/steam/steamcmd/linux32/steamclient.so /home/steam/.steam/sdk32/steamclient.so
 
 ENV AUTOEXEC $SERVER/csgo/csgo/cfg/autoexec.cfg
+ENV APP_ID="740"
 
 ADD ./cfg/autoexec.cfg $AUTOEXEC
 ADD ./cfg/server.cfg $SERVER/csgo/csgo/cfg/server.cfg
+
+# Generate autoupdate script
+RUN { \
+			echo '@ShutdownOnFailedCommand 1'; \
+			echo '@NoPromptForPassword 1'; \
+			echo 'login anonymous'; \
+			echo 'force_install_dir ${SERVER}'; \
+			echo 'app_update ${APP_ID}'; \
+			echo 'quit'; \
+		} > ${SERVER}/update.txt
 
 RUN if [ "$METAMOD" = true ] ; then ./$SERVER/install-metamod.sh ; fi
 RUN if [ "$METAMOD" = true ] && [ "$SOURCEMOD" = true ] ; then ./$SERVER/install-sourcemod.sh ; fi

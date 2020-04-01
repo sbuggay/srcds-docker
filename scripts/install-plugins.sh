@@ -2,9 +2,9 @@
 cd $HOME
 
 installPlugin () {
-    wget -qO- $1 -O tempplugin.zip
-    unzip -o tempplugin.zip -d $2
-    rm tempplugin.zip
+    wget -qO- $1 -O plugin.zip
+    unzip -q -o plugin.zip -d $2
+    rm plugin.zip
 }
 
 enablePlugin () {
